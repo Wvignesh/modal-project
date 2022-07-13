@@ -1,0 +1,117 @@
+@import '~antd/dist/antd.css';
+
+
+ 
+.ant-modal-header {
+  padding: 16px 24px;
+  color: rgba(0, 0, 0, 0.85);
+  background-color: #002766 !important;
+  border-bottom: 1px solid #f0f0f0;
+  border-radius: 2px 2px 0 0;
+}
+ 
+.ant-modal-close-x {
+  display: block;
+  width: 56px;
+  height: 56px;
+  font-size: 16px;
+  font-style: normal;
+  line-height: 56px;
+  text-align: center;
+  text-transform: none;
+  text-rendering: auto;
+  color:#fff !important;
+}
+ 
+.ant-form-item {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  color: rgba(0, 0, 0, 0.85);
+  font-size: 14px;
+  font-variant: tabular-nums;
+  line-height: 1.5715;
+  list-style: none;
+  font-feature-settings: 'tnum', "tnum";
+  margin-bottom: 14px !important;
+  vertical-align: top;
+  transition: margin-bottom 0.3s 0.017s linear;
+}
+
+.ant-modal-body {
+  padding: 26px;
+  height: 60vh !important;
+  font-size: 14px;
+  line-height: 1.5715;
+  word-wrap: break-word;
+}
+
+.ant-modal-title {
+  margin: 0;
+  color:#fff !important;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 22px;
+  word-wrap: break-word;
+}
+ 
+
+ 
+.mdl-btn-submit {
+
+  margin-top: 0px;
+  margin-left: 350px;
+}
+
+@media(max-width:700px){
+
+  .mdl-btn-submit {
+
+    margin-top: 90px;
+    margin-left: 150px;
+  }
+}
+
+.ant-btn-primary {
+  color: #fff;
+  border-color: #13C2C2 !important;
+  background: #13C2C2 !important;
+  text-shadow: 0 -1px 0 rgb(0 0 0 / 12%);
+  box-shadow: 0 2px 0 rgba(51, 39, 39, 0.05);
+}
+
+.head-btn {
+
+  background-color: #13C2C2;
+  margin-left: 10px;
+  color: #fff;
+  font-size: 16px;
+  text-align: center;
+   padding: 0px 15px;
+}
+
+
+
+   #components-layout-demo-custom-trigger .trigger {
+    padding: 0 24px;
+    font-size: 18px;
+    line-height: 64px;
+    cursor: pointer;
+    transition: color 0.3s;
+  }
+  
+  #components-layout-demo-custom-trigger .trigger:hover {
+    color: #1890ff;
+  }
+  
+  #components-layout-demo-custom-trigger .logo {
+    height: 32px;
+    margin: 16px;
+    background: rgba(255, 255, 255, 0.3);
+  }
+  
+  .site-layout .site-layout-background {
+    background: #fff;
+  }
+ 
