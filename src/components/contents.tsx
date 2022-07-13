@@ -209,13 +209,10 @@ const handleRemove = (index:any) => {
                         </List.Item>
                       
                       )}
-                    />
-               
-              
+                    />         
                </div>
             </>
           </Modal>
-
           <Button className="head-btn">
             {" "}
             Save <AiOutlineDown style={{ marginTop: 3 }} />
