@@ -1,7 +1,7 @@
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
-  UserOutlined,
+  UsergroupAddOutlined,MessageOutlined,TagOutlined,EditOutlined
 } from "@ant-design/icons";
 import { Layout, Menu } from "antd";
 import { AiOutlineDown } from "react-icons/ai";
@@ -13,10 +13,12 @@ import { Input } from "antd";
 import { Form } from "antd";
 import { Avatar, List,   } from 'antd';
 import { AiOutlineCloseCircle } from "react-icons/ai";
- 
- 
+import Tags from "./tags";
 
-const initUser = { email: "" , name:"" };
+
+ 
+  
+const initUser = { email: "joe@gmail.com" , username:"" };
 
 const { Header, Sider, Content } = Layout;
 
@@ -28,6 +30,7 @@ function Contents() {
   const [userName,setUserName] = useState<string>("");
   const [user, setUser] = useState("");
   const [data, setData] = useState<any>([]);
+  const [toggle, setToggle] = useState(false);
   
  
  
@@ -36,6 +39,8 @@ function Contents() {
   const showModal = () => {
     setVisible(true);
   };
+
+  
 
   const handleOk = (e: Event) => {
     
@@ -54,8 +59,8 @@ function Contents() {
 
   
   const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name,email, value }:any = e.target;
-    setFormValue({ ...formValue, [name]: value,[email]: value });
+    const { username,email, value }:any = e.target;
+    setFormValue({ ...formValue, [username]: value,[email]: value });
    setUser(e.target.value)
    console.log(formValue);
    
@@ -79,22 +84,49 @@ const handleRemove = (index:any) => {
  
   return (
     <Layout>
-      <Sider trigger={null} collapsible collapsed={collapsed}>
+      <Sider trigger={null} collapsible collapsed={collapsed} className="site-layout">
         <div className="logo" />
         <Menu
-          theme="dark"
+         
           mode="inline"
           defaultSelectedKeys={["1"]}
           items={[
             {
-              key: "1",
-              icon: <UserOutlined />,
-              label: "Invited Signatures",
+              key: '1',
+              icon: <UsergroupAddOutlined />,
+               
+            },
+            {
+              key: '2',
+              icon: <MessageOutlined />,
+               
+            },
+            {
+              key: '3',
+              icon: <TagOutlined onClick={() => setToggle(!toggle)} />,
+              
+      
+            },
+            {
+              key: '4',
+              icon: <EditOutlined />,
+         
+            
             },
           ]}
+           
           
         />
+             <Tags  />
+       
+       
       </Sider>
+
+      
+ 
+                  
+                  
+
       <Layout className="site-layout">
         <Header
           className="site-layout-background"

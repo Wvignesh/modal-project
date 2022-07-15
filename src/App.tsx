@@ -6,7 +6,7 @@ import  Contents from './components/contents';
  
 
  
-const App: React.FC  = () => {
+const App = () => {
 
 
   return (
@@ -14,9 +14,8 @@ const App: React.FC  = () => {
   <div className="App">
      
      <Contents />
-     
-     
-
+    
+  
   </div>
   );
 };
