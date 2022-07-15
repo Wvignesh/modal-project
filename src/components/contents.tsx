@@ -15,7 +15,6 @@ import { Avatar, List,   } from 'antd';
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import Tags from "./tags";
 
-
  
   
 const initUser = { email: "joe@gmail.com" , username:"" };
@@ -33,15 +32,16 @@ function Contents() {
   const [toggle, setToggle] = useState(false);
   
  
- 
- 
+  const toggleinput=() => {
+    setToggle(!toggle)
+    console.log("toggle==>", toggle)
+     }
   
   const showModal = () => {
     setVisible(true);
   };
 
   
-
   const handleOk = (e: Event) => {
     
     e.preventDefault();
@@ -103,7 +103,7 @@ const handleRemove = (index:any) => {
             },
             {
               key: '3',
-              icon: <TagOutlined onClick={() => setToggle(!toggle)} />,
+              icon: <TagOutlined onClick={ toggleinput} />,
               
       
             },
@@ -114,19 +114,15 @@ const handleRemove = (index:any) => {
             
             },
           ]}
-           
           
         />
-             <Tags  />
-       
+             
+       { 
+         toggle&& <Tags />
+       }
        
       </Sider>
-
-      
- 
-                  
-                  
-
+        
       <Layout className="site-layout">
         <Header
           className="site-layout-background"
@@ -298,6 +294,7 @@ const handleRemove = (index:any) => {
         </Content>
       </Layout>
     </Layout>
+    
   );
 }
 

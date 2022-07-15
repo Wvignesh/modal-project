@@ -15,15 +15,7 @@ const Tags = () => {
   const editInputRef = useRef(null);
   
 
-  
-//   useEffect(() => {
-//     if (inputVisible) {
-//       inputRef.current?.focus();
-//     }
-//   }, [inputVisible]);
-//   useEffect(() => {
-//     editInputRef.current?.focus();
-//   }, [inputValue]);
+   
 
   const handleClose = (removedTag:any) => {
     const newTags = tags.filter((tag) => tag !== removedTag);
@@ -60,9 +52,7 @@ const Tags = () => {
     setInputValue('');
   };
 
-  // const tagClose =()=> {
-  //   setInputVisible(false);
-  // }
+   
 
   return (
     <>
