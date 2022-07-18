@@ -14,7 +14,6 @@ import { Form } from "antd";
 import { Avatar, List,   } from 'antd';
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import Tags from "./tags";
-
  
   
 const initUser = { email: "joe@gmail.com" , username:"" };
@@ -104,14 +103,12 @@ const handleRemove = (index:any) => {
             {
               key: '3',
               icon: <TagOutlined onClick={ toggleinput} />,
-              
-      
+             
             },
             {
               key: '4',
               icon: <EditOutlined />,
-         
-            
+          
             },
           ]}
           
@@ -194,9 +191,7 @@ const handleRemove = (index:any) => {
                     onChange={onInputChange}
                    
                   />
-                  
-                  
-                 
+                   
                 </Form.Item>
               </Form>
               <p>Invited Contracters</p>

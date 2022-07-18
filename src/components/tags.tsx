@@ -4,8 +4,6 @@ import { CloseOutlined} from '@ant-design/icons';
 import type { InputRef } from 'antd';
 
  
- 
-
 const Tags = () => {
   const [tags, setTags] = useState<string[]>(['']);
   const [inputVisible, setInputVisible] = useState(false);
@@ -14,9 +12,7 @@ const Tags = () => {
   const [editInputValue, setEditInputValue] = useState('');
   const inputRef = useRef<InputRef>(null);
   const editInputRef = useRef<InputRef>(null);
-
-
-
+ 
   useEffect(() => {
     if (inputVisible) {
       inputRef.current?.focus();
@@ -66,8 +62,7 @@ const Tags = () => {
 
   return (
     <>
-       
-
+     
      <div > 
        
            <div  className='tag-header' >
@@ -88,17 +83,13 @@ const Tags = () => {
             onPressEnter={handleInputConfirm}
           />
         )}
- 
-           
+  
             {!inputVisible && (
            
            <Input  placeholder="Example" onClick={showInput} />
         
            )} 
-
-            
-           
-         
+  
          <Space direction="horizontal" wrap >
         {tags.map((tag, index) => {
           if (editInputIndex === index) {
