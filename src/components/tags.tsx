@@ -63,7 +63,7 @@ const Tags = () => {
   return (
     <>
      
-     <div > 
+     <div className="section-tag"> 
        
            <div  className='tag-header' >
            <span>  Tags </span>
