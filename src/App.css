@@ -199,10 +199,13 @@
     transition: all 0.3s;
 }
 
-  /* span:nth-child(3) {
 
-  display: none !important;
- } */
+.ant-layout-sider-children {
+  height: 100%;
+  margin-top: -0.1px;
+  padding-top: 0.1px;
+  display: flex;
+}
 
  .ant-space-item:nth-child(1){
   display: none;
@@ -212,7 +215,4 @@
     padding-top: 10px;
   }
 
-  /* .site-tag-plus {
-    background: #fff;
-    border-style: solid;
-  } */
+  
