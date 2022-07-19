@@ -10,6 +10,7 @@ const Tags = () => {
   const [inputValue, setInputValue] = useState('');
   const [editInputIndex, setEditInputIndex] = useState(-1);
   const [editInputValue, setEditInputValue] = useState('');
+  const [visible, setVisible] = useState(false)
   const inputRef = useRef<InputRef>(null);
   const editInputRef = useRef<InputRef>(null);
  
@@ -59,6 +60,11 @@ const Tags = () => {
   };
 
    
+  const handleCancel=() => {
+    setVisible(!visible)
+    console.log("visible==>", visible)
+     }
+
 
   return (
     <>
@@ -67,7 +73,7 @@ const Tags = () => {
        
            <div  className='tag-header' >
            <span>  Tags </span>
-           <CloseOutlined   />
+           <CloseOutlined  onClick={handleCancel}  />
            </div>
            <hr/>
 

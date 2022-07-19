@@ -1,6 +1,12 @@
 @import '~antd/dist/antd.css';
 
+.ant-layout-sider-children .ant-menu.ant-menu-inline-collapsed {
+  width:fit-content ;
+}
 
+.siderMenuList{
+  width:15% ;
+}
  
 .ant-modal-header {
   padding: 16px 24px;
@@ -134,7 +140,7 @@
   user-select: none; 
   display: flex;
   justify-content: space-between;
-  /* width: 100%; */
+  width: 100%;  
   align-items: center;
   padding:5px !important;
 }
@@ -207,12 +213,16 @@
     transition: all 0.3s;
 }
 
+.ant-menu-inline {
+  /* width: 50% !important; */
+}
 
 .ant-layout-sider-children {
   height: 100%;
+  width: 100%;
   margin-top: -0.1px;
   padding-top: 0.1px;
-  display: flex;
+   display: flex; 
   background-color: #ffff !important;
 }
 
@@ -224,4 +234,74 @@
     padding-top: 10px;
   }
 
+
+  /* comments section */
+
+.commentSectionHead{
+
+   max-width: 80%;
+}
+
+.commentsHead{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
+
+.commentTitle{
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.xmark{
+   font-weight: 400;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.btnComment{
+
+   margin-left: 60%;
+}
+
+
+
+
+
+.ant-list-items {
+  margin: 0;
+  padding: 0; 
+  list-style: none;
+}
+
+.ant-spin-container {
+  position: relative;
+  transition: opacity 0.3s;
+}
+
+textarea.ant-input {
+  width: 100% !important;
+  height: auto;
+  height: 80px !important;
+  line-height: 1.5715;
+  vertical-align: bottom;
+  transition: all 0.3s, height 0s;
+}
+ 
+.ant-list-header {
+  display: none;
+}
+
+.ant-comment-inner {
+  display: flex;
+  padding: 16px 0;
   
+}
+
+.listCommentProp{
+
+  display: flex;
+  flex-direction: column !important;
+  
+}

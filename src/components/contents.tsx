@@ -14,6 +14,7 @@ import { Form } from "antd";
 import { Avatar, List,   } from 'antd';
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import Tags from "./tags";
+import CommentLists from './commentLists';
  
   
 const initUser = { email: "joe@gmail.com" , username:"" };
@@ -28,13 +29,14 @@ function Contents() {
   const [userName,setUserName] = useState<string>("");
   const [user, setUser] = useState("");
   const [data, setData] = useState<any>([]);
-  const [toggle, setToggle] = useState(false);
+  //const [toggle, setToggle] = useState(false);
+  const [active, setActive] = useState("");
   
  
-  const toggleinput=() => {
-    setToggle(!toggle)
-    console.log("toggle==>", toggle)
-     }
+  // const toggleinput=() => {
+  //   setToggle(!toggle)
+  //   console.log("toggle==>", toggle)
+  //    }
   
   const showModal = () => {
     setVisible(true);
@@ -83,10 +85,10 @@ const handleRemove = (index:any) => {
  
   return (
     <Layout>
-      <Sider trigger={null} collapsible collapsed={collapsed} className="site-layout">
+      <Sider    width={350} className="site-layout sider-Layout">
         <div className="logo" />
         <Menu
-         
+          className="siderMenuList"
           mode="inline"
           defaultSelectedKeys={["1"]}
           items={[
@@ -97,26 +99,33 @@ const handleRemove = (index:any) => {
             },
             {
               key: '2',
-              icon: <MessageOutlined />,
+              icon: <MessageOutlined  onClick={()=> setActive("2")} />,
+               
                
             },
             {
               key: '3',
-              icon: <TagOutlined onClick={ toggleinput} />,
+              icon: <TagOutlined onClick={()=> setActive("3")} />,
+               
              
             },
             {
               key: '4',
               icon: <EditOutlined />,
+              
           
             },
           ]}
           
         />
-             
-       { 
-         toggle&& <Tags />
-       }
+              
+         { 
+         active === '3' && <Tags   />
+       }  
+
+      { 
+       active === '2' && <CommentLists/>
+       }  
        
       </Sider>
         
