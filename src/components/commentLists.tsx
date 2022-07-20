@@ -63,7 +63,7 @@ const CommentLists = () => {
         ...comments,
         {
           author: 'Han Solo',
-          datetime: moment().fromNow(),
+          datetime: moment().subtract(1, 'days').fromNow(),
           avatar: 'https://joeschmoe.io/api/v1/random',
           content: <p>{value}</p>,
           

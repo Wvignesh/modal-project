@@ -21,7 +21,7 @@
   padding: 0 50px;
   color: rgba(0, 0, 0, 0.85);
   line-height: 64px;
-  background-color: #fff !important;
+  background-color: rgb(252, 252, 252) !important;
 }
 
 
@@ -137,7 +137,11 @@
     background: #fff;
   }
  
-
+  element.style {
+    margin: 0 !important ;
+    padding: 14px !important;
+    min-height: 280px;
+}
 
  /* tags/css */
 
