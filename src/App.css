@@ -16,6 +16,13 @@
   border-radius: 2px 2px 0 0;
 }
  
+.ant-layout-header {
+  height: 64px;
+  padding: 0 50px;
+  color: rgba(0, 0, 0, 0.85);
+  line-height: 64px;
+  background-color: #fff !important;
+}
 
 
 .ant-layout-sider {
@@ -213,9 +220,7 @@
     transition: all 0.3s;
 }
 
-.ant-menu-inline {
-  /* width: 50% !important; */
-}
+ 
 
 .ant-layout-sider-children {
   height: 100%;

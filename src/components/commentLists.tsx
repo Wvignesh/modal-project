@@ -51,6 +51,7 @@ const CommentLists = () => {
   const [comments, setComments] = useState<CommentItem[]>([]);
   const [submitting, setSubmitting] = useState(false);
   const [value, setValue] = useState('');
+  const [close, setClose] = useState(false);
 
   const handleSubmit = () => {
     if (!value) return;
@@ -85,7 +86,7 @@ const CommentLists = () => {
          <div >
                <div className='commentsHead'>
                  <span className='commentTitle'> Comments</span>
-                 <span className='xmark'>X</span>
+                 <span className='xmark'    onClick={()=> setClose(!close)}>X</span>
       
                 </div>  
                   <hr className='commentSectionLine' />
