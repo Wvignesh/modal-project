@@ -2,19 +2,21 @@ import { Input, Space,Tag, Tooltip } from 'antd';
 import React, { useRef, useState,useEffect } from 'react';
 import { CloseOutlined} from '@ant-design/icons';
 import type { InputRef } from 'antd';
+import useLocalStorage from './useLocalStorage';
 
  
 const Tags = () => {
   const [tags, setTags] = useState<string[]>(['']);
   const [inputVisible, setInputVisible] = useState(false);
-  const [inputValue, setInputValue] = useState('');
+  const [inputValue, setInputValue] = useLocalStorage("inputValue" ,'');
   const [editInputIndex, setEditInputIndex] = useState(-1);
   const [editInputValue, setEditInputValue] = useState('');
-  const [visible, setVisible] = useState(false)
+  const [close, setClose] = useState(true);
   const inputRef = useRef<InputRef>(null);
   const editInputRef = useRef<InputRef>(null);
  
   useEffect(() => {
+     
     if (inputVisible) {
       inputRef.current?.focus();
     }
@@ -60,95 +62,93 @@ const Tags = () => {
   };
 
    
-  const handleCancel=() => {
-    setVisible(!visible)
-    console.log("visible==>", visible)
-     }
-
-
+  
   return (
     <>
-     
-     <div className="section-tag"> 
+       {  
+          close ?  <div className="section-tag"> 
        
-           <div  className='tag-header' >
-           <span>  Tags </span>
-           <CloseOutlined  onClick={handleCancel}  />
-           </div>
-           <hr/>
+          <div  className='tag-header' >
+          <span>  Tags </span>
+          <CloseOutlined    onClick={()=> setClose(!close)}  />
+          </div>
+          <hr/>
 
-           {inputVisible && (
-          <Input
-            ref={inputRef}
-            type="text"
-            size="small"
-            className="tag-input"
-            value={inputValue}
-            onChange={handleInputChange}
-            onBlur={handleInputConfirm}
-            onPressEnter={handleInputConfirm}
-          />
-        )}
-  
-            {!inputVisible && (
-           
-           <Input  placeholder="Example" onClick={showInput} />
-        
-           )} 
-  
-         <Space direction="horizontal" wrap >
-        {tags.map((tag, index) => {
-          if (editInputIndex === index) {
-            return (
-              <Input
-                ref={editInputRef}
-                key={tag}
-                size="small"
-                className="tag-input"
-                value={editInputValue}
-                onChange={handleEditInputChange}
-                onBlur={handleEditInputConfirm}
-                onPressEnter={handleEditInputConfirm}
-              />
-            );
-          }
-         
-          const isLongTag = tag.length > 20;
-          const tagElem = (
-            <Tag
-              className="edit-tag"
-              key={tag}
-              closable={index !== 0}
-              onClose={() => handleClose(tag)}
-            >
-              
-              <span
-              className='span-tag'
-                onClick={(e) => {
-                  if (index !== 0) {
-                    setEditInputIndex(index);
-                    setEditInputValue(tag);
-                    e.preventDefault();
-                  }
-                }}
-              >
-                {isLongTag ? `${tag.slice(0, 20)}...` : tag}
-              </span>
-            </Tag>
-          );
+          {inputVisible && (
+         <Input
+           ref={inputRef}
+           type="text"
+           size="small"
+           className="tag-input"
+           value={inputValue}
+           onChange={handleInputChange}
+           onBlur={handleInputConfirm}
+           onPressEnter={handleInputConfirm}
+         />
+       )}
+ 
+           {!inputVisible && (
           
-          return isLongTag ? (
-            <Tooltip title={tag} key={tag}>
-              {tagElem}
-            </Tooltip>
-          ) : (
-            tagElem
-          );
-        })}
-         </Space>
-         
+          <Input  placeholder="Example" onClick={showInput} />
        
-     </div>
+          )} 
+ 
+        <Space direction="horizontal" wrap >
+       {tags.map((tag, index) => {
+         if (editInputIndex === index) {
+           return (
+             <Input
+               ref={editInputRef}
+               key={tag}
+               size="small"
+               className="tag-input"
+               value={editInputValue}
+               onChange={handleEditInputChange}
+               onBlur={handleEditInputConfirm}
+               onPressEnter={handleEditInputConfirm}
+             />
+           );
+         }
+        
+         const isLongTag = tag.length > 20;
+         const tagElem = (
+           <Tag
+             className="edit-tag"
+             key={tag}
+             closable={index !== 0}
+             onClose={() => handleClose(tag)}
+           >
+             
+             <span
+             className='span-tag'
+               onClick={(e) => {
+                 if (index !== 0) {
+                   setEditInputIndex(index);
+                   setEditInputValue(tag);
+                   e.preventDefault();
+                 }
+               }}
+             >
+               {isLongTag ? `${tag.slice(0, 20)}...` : tag}
+             </span>
+           </Tag>
+         );
+         
+         return isLongTag ? (
+           <Tooltip title={tag} key={tag}>
+             {tagElem}
+           </Tooltip>
+         ) : (
+           tagElem
+         );
+       })}
+        </Space>
+        
+      
+    </div> : null
+       
+       }
+    
    
     </>
   );

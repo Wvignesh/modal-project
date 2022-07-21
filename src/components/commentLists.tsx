@@ -1,7 +1,9 @@
 import { Avatar, Button, Comment, Form, Input, List } from 'antd';
 import moment from 'moment';
 import React, { useState } from 'react';
+import useLocalStorage from './useLocalStorage';
 const { TextArea } = Input;
+
 
 interface CommentItem {
   author: string;
@@ -50,8 +52,8 @@ const CommentList = ({ comments }: { comments: CommentItem[] }) => (
 const CommentLists = () => {
   const [comments, setComments] = useState<CommentItem[]>([]);
   const [submitting, setSubmitting] = useState(false);
-  const [value, setValue] = useState('');
-  const [close, setClose] = useState(false);
+  const [value, setValue] = useLocalStorage("value", '');
+  const [close, setClose] = useState(true);
 
   const handleSubmit = () => {
     if (!value) return;
@@ -78,40 +80,47 @@ const CommentLists = () => {
 
   return (
     <>
-      
+   
+        {close &&  <div className='commentSectionHead'> 
 
-      <div className='commentSectionHead'>
 
-
-         <div >
-               <div className='commentsHead'>
-                 <span className='commentTitle'> Comments</span>
-                 <span className='xmark'    onClick={()=> setClose(!close)}>X</span>
-      
-                </div>  
-                  <hr className='commentSectionLine' />
-    
-      
-      <Comment
-        avatar={<Avatar src="https://joeschmoe.io/api/v1/random" alt="Han Solo" />}
-        content={
-          <Editor
-            onChange={handleChange}
-            onSubmit={handleSubmit}
-            submitting={submitting}
-            value={value}
-          />  
-          
-        }
-        
-
-      />
+        <div >
+              <div className='commentsHead'>
+                <span className='commentTitle'> Comments</span>
+                <span className='xmark' onClick={()=> setClose(!close) 
+                 
+                }>X
+                </span>
+                  
+                    
+               </div>  
+                 <hr className='commentSectionLine' />
+   
+     
+     <Comment
+       avatar={<Avatar src="https://joeschmoe.io/api/v1/random" alt="Han Solo" />}
+       content={
+         <Editor
+           onChange={handleChange}
+           onSubmit={handleSubmit}
+           submitting={submitting}
+           value={value}
+         />  
+         
+       }
        
-       {comments.length > 0 && <CommentList comments={comments} />}
-       
-       </div>
 
+     />
+      
+      {comments.length > 0 && <CommentList comments={comments} />}
+      
       </div>
+
+     </div> 
+       
+
+      }
+      
     </>
      
   );
