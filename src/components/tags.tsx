@@ -2,18 +2,28 @@ import { Input, Space,Tag, Tooltip } from 'antd';
 import React, { useRef, useState,useEffect } from 'react';
 import { CloseOutlined} from '@ant-design/icons';
 import type { InputRef } from 'antd';
-import useLocalStorage from './useLocalStorage';
+//import useLocalStorage from './useLocalStorage';
+
+
+const tagLocalStorage = JSON.parse(localStorage.getItem("inputValue") || '[]');
+
 
  
 const Tags = () => {
   const [tags, setTags] = useState<string[]>(['']);
   const [inputVisible, setInputVisible] = useState(false);
-  const [inputValue, setInputValue] = useLocalStorage("inputValue" ,'');
+  const [inputValue, setInputValue] = useState(tagLocalStorage);
   const [editInputIndex, setEditInputIndex] = useState(-1);
   const [editInputValue, setEditInputValue] = useState('');
   const [close, setClose] = useState(true);
   const inputRef = useRef<InputRef>(null);
   const editInputRef = useRef<InputRef>(null);
+
+  
+ useEffect (()=> {
+  localStorage.setItem("inputValue", JSON.stringify(inputValue))
+ },[inputValue])
+
  
   useEffect(() => {
      

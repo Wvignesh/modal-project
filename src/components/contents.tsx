@@ -210,7 +210,7 @@ function Contents() {
         >
           <div className="container">
             <p className="content">
-              Lorem ipsum vickie dolor sit amet. Cum accusantium quasi qui atque
+              Lorem ipsum vickiie dolor sit amet. Cum accusantium quasi qui atque
               quod et nesciunt molestias ut odit consequatur! In labore incidunt
               sed voluptatum tenetur non nobis ipsa quo aspernatur beatae. Aut
               aliquid quos qui ratione nisi est perspiciatis unde eos repellat
@@ -273,9 +273,9 @@ function Contents() {
             ]}
           />
 
-          {active === "3" && <Tags />}
+          {active === "3" && <Tags  />}
 
-          {active === "2" && <CommentLists />}
+          {active === "2" && <CommentLists   />}
         </Sider>
       </Layout>
     </Layout>

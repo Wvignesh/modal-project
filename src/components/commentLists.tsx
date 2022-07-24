@@ -1,16 +1,20 @@
 import { Avatar, Button, Comment, Form, Input, List } from 'antd';
 import moment from 'moment';
-import React, { useState } from 'react';
-import useLocalStorage from './useLocalStorage';
+import React, { useState,useEffect} from 'react';
+//import useLocalStorage from './useLocalStorage';
 const { TextArea } = Input;
 
+
+ //const commentLocalStorage = JSON.parse(localStorage.getItem("value") || '[]');
 
 interface CommentItem {
   author: string;
   avatar: string;
   content: React.ReactNode;
   datetime: string;
+  
 }
+
 
 interface EditorProps {
   onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
@@ -35,6 +39,7 @@ const Editor = ({ onChange, onSubmit, submitting, value }: EditorProps) => (
   
   </>
 );
+console.log(Editor)
 
 const CommentList = ({ comments }: { comments: CommentItem[] }) => (
 
@@ -52,15 +57,26 @@ const CommentList = ({ comments }: { comments: CommentItem[] }) => (
 const CommentLists = () => {
   const [comments, setComments] = useState<CommentItem[]>([]);
   const [submitting, setSubmitting] = useState(false);
-  const [value, setValue] = useLocalStorage("value", '');
+  const [value, setValue] = useState('');
   const [close, setClose] = useState(true);
 
-  const handleSubmit = () => {
+ 
+ 
+//  useEffect (()=> {
+//   localStorage.setItem("value", JSON.stringify(value))
+ 
+//  },[value])
+
+
+  const handleSubmit = () => {     
+ console.log('data', comments)
     if (!value) return;
     setSubmitting(true);
     setTimeout(() => {
       setSubmitting(false);
       setValue('');
+      
+ 
       setComments([
         ...comments,
         {
