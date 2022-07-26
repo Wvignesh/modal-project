@@ -9,21 +9,84 @@ import {
 import { Layout, Menu } from "antd";
 import { AiOutlineDown } from "react-icons/ai";
 import { AiOutlineEdit } from "react-icons/ai";
-import { Modal, Button } from "antd";
-import React, { useState } from "react";
+import { Modal } from "antd";
 import "../App.css";
-import { Input } from "antd";
-import { Form } from "antd";
-import { Avatar, List } from "antd";
 import { AiOutlineCloseCircle } from "react-icons/ai";
-import Tags from "./tags";
-import CommentLists from "./commentLists";
+import { Avatar, Button, Comment, Form, Input, List } from "antd";
+import moment from "moment";
+//import Tags from "./tags";
+import { Space,Tag, Tooltip } from 'antd';
+import React, { useRef, useState,useEffect } from 'react';
+import { CloseOutlined} from '@ant-design/icons';
+import type { InputRef } from 'antd';
+//import CommentLists from "./commentLists";
 
 const initUser = { email: "joe@gmail.com", username: "" };
 
 const { Header, Sider, Content } = Layout;
 
+const { TextArea } = Input;
+
+interface CommentItem {
+  author: string;
+  avatar: string;
+  content: React.ReactNode;
+  datetime: string;
+}
+
+interface EditorProps {
+  onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  onSubmit: () => void;
+  submitting: boolean;
+  value: string;
+}
+
+const Editor = ({ onChange, onSubmit, submitting, value }: EditorProps) => (
+  <>
+    <Form.Item>
+      <TextArea
+        rows={4}
+        onChange={onChange}
+        value={value}
+        placeholder="You can add comments here"
+      />
+    </Form.Item>
+    <Form.Item>
+      <Button
+        htmlType="submit"
+        className="btnComment"
+        loading={submitting}
+        onClick={onSubmit}
+        type="primary"
+      >
+        Post
+      </Button>
+    </Form.Item>
+  </>
+);
+
+const CommentList = ({ comments }: { comments: CommentItem[] }) => (
+  <List
+    dataSource={comments}
+    header={`${comments.length} ${comments.length > 1 ? "replies" : "reply"}`}
+    itemLayout="horizontal"
+    renderItem={(props) => <Comment {...props} />}
+    className="listCommentProp"
+  />
+);
+
 function Contents() {
+  const [tags, setTags] = useState<string[]>(['']);
+  const [inputVisible, setInputVisible] = useState(false);
+  const [inputValue, setInputValue] = useState('');
+  const [editInputIndex, setEditInputIndex] = useState(-1);
+  const [editInputValue, setEditInputValue] = useState('');
+  //const [close, setClose] = useState(true);
+  const inputRef = useRef<InputRef>(null);
+  const editInputRef = useRef<InputRef>(null);
+  const [comments, setComments] = useState<CommentItem[]>([]);
+  const [submitting, setSubmitting] = useState(false);
+  const [value, setValue] = useState("");
   const [collapsed, setCollapsed] = useState(false);
   const [loading, setLoading] = useState(false);
   const [visible, setVisible] = useState(false);
@@ -31,13 +94,90 @@ function Contents() {
   const [userName, setUserName] = useState<string>("");
   const [user, setUser] = useState("");
   const [data, setData] = useState<any>([]);
-  //const [toggle, setToggle] = useState(false);
-  const [active, setActive] = useState("");
+  const [toggle, setToggle] = useState(false);
+  const [active, setActive] = useState(false);
 
-  // const toggleinput=() => {
-  //   setToggle(!toggle)
-  //   console.log("toggle==>", toggle)
-  //    }
+   
+
+
+  useEffect(() => {
+     
+    if (inputVisible) {
+      inputRef.current?.focus();
+    }
+  }, [inputVisible]);
+
+  useEffect(() => {
+    editInputRef.current?.focus();
+  }, [inputValue]);
+  
+  const handleClose = (removedTag:any) => {
+    const newTags = tags.filter((tag) => tag !== removedTag);
+    console.log(newTags);
+    setTags(newTags);
+  };
+
+  const showInput = () => {
+    setInputVisible(true);
+  };
+
+  const handleInputChange = (e:any) => {
+    setInputValue(e.target.value);
+  };
+
+  const handleInputConfirm = () => {
+    if (inputValue && tags.indexOf(inputValue) === -1) {
+      setTags([...tags, inputValue]);
+    }
+
+    setInputVisible(false);
+    setInputValue('');
+  };
+
+  const handleEditInputChange = (e:any) => {
+    setEditInputValue(e.target.value);
+  };
+
+  const handleEditInputConfirm = () => {
+    const newTags = [...tags];
+    newTags[editInputIndex] = editInputValue;
+    setTags(newTags);
+    setEditInputIndex(-1);
+    setInputValue('');
+  };
+
+
+  const handleSubmit = () => {
+    if (!value) return;
+    setSubmitting(true);
+    setTimeout(() => {
+      setSubmitting(false);
+      setValue("");
+      setComments([
+        ...comments,
+        {
+          author: "Han Solo",
+          datetime: moment().subtract(1, "days").fromNow(),
+          avatar: "https://joeschmoe.io/api/v1/random",
+          content: <p>{value}</p>,
+        },
+      ]);
+    }, 1000);
+  };
+
+  const handleChange = (e: any) => {
+    setValue(e.target.value);
+  };
+
+  const toggleinput = () => {
+    setToggle(!toggle);
+    console.log("toggle==>", toggle);
+  };
+
+  const activeHandle = () => {
+    setActive(!active);
+     
+  };
 
   const showModal = () => {
     setVisible(true);
@@ -210,39 +350,39 @@ function Contents() {
         >
           <div className="container">
             <p className="content">
-              Lorem ipsum vickiie dolor sit amet. Cum accusantium quasi qui atque
-              quod et nesciunt molestias ut odit consequatur! In labore incidunt
-              sed voluptatum tenetur non nobis ipsa quo aspernatur beatae. Aut
-              aliquid quos qui ratione nisi est perspiciatis unde eos repellat
-              cupiditate sed necessitatibus veritatis vel fuga odit et veniam
-              tempore. Et enim sunt eos perspiciatis magnam ea nihil possimus{" "}
-              <br /> <br /> eum quia deleniti eum omnis dolores qui voluptate
-              inventore. At error laborum sed culpa suscipit ad expedita officia
-              sit accusamus eaque ex saepe vero! Ut quaerat illo ad rerum
-              voluptatem et animi ducimus nam incidunt dolorem ut voluptatem
-              rerum ut debitis quam. Eos voluptatem laborum et corrupti
-              voluptatem rem autem ipsum et fugit beatae. Ut veniam unde aut
-              accusamus quae vel exercitationem error. Ad ipsa tempore sed
-              temporibus ipsum sed mollitia <br /> <br /> blanditiis sed illum
-              itaque et illo autem! Sed maxime excepturi sit error soluta aut
-              quis dolores qui beatae magnam qui voluptate nihil sed repellat
-              aliquam. Lorem ipsum dolor sit amet. Cum accusantium quasi qui
+              Lorem ipsum vickiie dolor sit amet. Cum accusantium quasi qui
               atque quod et nesciunt molestias ut odit consequatur! In labore
               incidunt sed voluptatum tenetur non nobis ipsa quo aspernatur
               beatae. Aut aliquid quos qui ratione nisi est perspiciatis unde
               eos repellat cupiditate sed necessitatibus veritatis vel fuga odit
-              et veniam tempore. <br /> <br /> Et enim sunt eos perspiciatis
-              magnam ea nihil possimus eum quia deleniti eum omnis dolores qui
+              et veniam tempore. Et enim sunt eos perspiciatis magnam ea nihil
+              possimus <br /> <br /> eum quia deleniti eum omnis dolores qui
               voluptate inventore. At error laborum sed culpa suscipit ad
               expedita officia sit accusamus eaque ex saepe vero! Ut quaerat
               illo ad rerum voluptatem et animi ducimus nam incidunt dolorem ut
               voluptatem rerum ut debitis quam. Eos voluptatem laborum et
               corrupti voluptatem rem autem ipsum et fugit beatae. Ut veniam
               unde aut accusamus quae vel exercitationem error. Ad ipsa tempore
-              sed temporibus ipsum sed mollitia blanditiis sed illum itaque et
-              illo autem! Sed maxime excepturi sit error soluta aut quis dolores
-              qui beatae magnam qui voluptate nihil sed repellat aliquam <br />{" "}
-              <br />
+              sed temporibus ipsum sed mollitia <br /> <br /> blanditiis sed
+              illum itaque et illo autem! Sed maxime excepturi sit error soluta
+              aut quis dolores qui beatae magnam qui voluptate nihil sed
+              repellat aliquam. Lorem ipsum dolor sit amet. Cum accusantium
+              quasi qui atque quod et nesciunt molestias ut odit consequatur! In
+              labore incidunt sed voluptatum tenetur non nobis ipsa quo
+              aspernatur beatae. Aut aliquid quos qui ratione nisi est
+              perspiciatis unde eos repellat cupiditate sed necessitatibus
+              veritatis vel fuga odit et veniam tempore. <br /> <br /> Et enim
+              sunt eos perspiciatis magnam ea nihil possimus eum quia deleniti
+              eum omnis dolores qui voluptate inventore. At error laborum sed
+              culpa suscipit ad expedita officia sit accusamus eaque ex saepe
+              vero! Ut quaerat illo ad rerum voluptatem et animi ducimus nam
+              incidunt dolorem ut voluptatem rerum ut debitis quam. Eos
+              voluptatem laborum et corrupti voluptatem rem autem ipsum et fugit
+              beatae. Ut veniam unde aut accusamus quae vel exercitationem
+              error. Ad ipsa tempore sed temporibus ipsum sed mollitia
+              blanditiis sed illum itaque et illo autem! Sed maxime excepturi
+              sit error soluta aut quis dolores qui beatae magnam qui voluptate
+              nihil sed repellat aliquam <br /> <br />
             </p>
           </div>
         </Content>
@@ -260,11 +400,11 @@ function Contents() {
               },
               {
                 key: "2",
-                icon: <MessageOutlined onClick={() => setActive("2")} />,
+                icon: <MessageOutlined onClick={toggleinput} />,
               },
               {
                 key: "3",
-                icon: <TagOutlined onClick={() => setActive("3")} />,
+                icon: <TagOutlined onClick={activeHandle} />,
               },
               {
                 key: "4",
@@ -273,9 +413,119 @@ function Contents() {
             ]}
           />
 
-          {active === "3" && <Tags  />}
+             {active &&  <div className="section-tag"> 
+       
+       <div  className='tag-header' >
+       <span>  Tags </span>
+       <CloseOutlined    onClick={()=> setActive(!active)}  />
+       </div>
+       <hr/>
 
-          {active === "2" && <CommentLists   />}
+       {inputVisible && (
+      <Input
+        ref={inputRef}
+        type="text"
+        size="small"
+        className="tag-input"
+        value={inputValue}
+        onChange={handleInputChange}
+        onBlur={handleInputConfirm}
+        onPressEnter={handleInputConfirm}
+      />
+    )}
+
+        {!inputVisible && (
+       
+       <Input  placeholder="Example" onClick={showInput} />
+    
+       )} 
+
+     <Space direction="horizontal" wrap >
+    {tags.map((tag, index) => {
+      if (editInputIndex === index) {
+        return (
+          <Input
+            ref={editInputRef}
+            key={tag}
+            size="small"
+            className="tag-input"
+            value={editInputValue}
+            onChange={handleEditInputChange}
+            onBlur={handleEditInputConfirm}
+            onPressEnter={handleEditInputConfirm}
+          />
+        );
+      }
+     
+      const isLongTag = tag.length > 20;
+      const tagElem = (
+        <Tag
+          className="edit-tag"
+          key={tag}
+          closable={index !== 0}
+          onClose={() => handleClose(tag)}
+        >
+          
+          <span
+          className='span-tag'
+            onClick={(e) => {
+              if (index !== 0) {
+                setEditInputIndex(index);
+                setEditInputValue(tag);
+                e.preventDefault();
+              }
+            }}
+          >
+            {isLongTag ? `${tag.slice(0, 20)}...` : tag}
+          </span>
+        </Tag>
+      );
+      
+      return isLongTag ? (
+        <Tooltip title={tag} key={tag}>
+          {tagElem}
+        </Tooltip>
+      ) : (
+        tagElem
+      );
+    })}
+     </Space>
+     
+   
+ </div>   }    
+
+          {toggle && (
+            <div className="commentSectionHead">
+              <div>
+                <div className="commentsHead">
+                  <span className="commentTitle"> Comments</span>
+                  <span className="xmark" onClick={()=> setToggle(!toggle) }>
+                    X
+                  </span>
+                </div>
+                <hr className="commentSectionLine" />
+
+                <Comment
+                  avatar={
+                    <Avatar
+                      src="https://joeschmoe.io/api/v1/random"
+                      alt="Han Solo"
+                    />
+                  }
+                  content={
+                    <Editor
+                      onChange={handleChange}
+                      onSubmit={handleSubmit}
+                      submitting={submitting}
+                      value={value}
+                    />
+                  }
+                />
+
+                {comments.length > 0 && <CommentList comments={comments} />}
+              </div>
+            </div>
+          )}
         </Sider>
       </Layout>
     </Layout>

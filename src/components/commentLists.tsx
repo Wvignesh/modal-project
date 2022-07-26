@@ -1,11 +1,14 @@
 import { Avatar, Button, Comment, Form, Input, List } from 'antd';
 import moment from 'moment';
-import React, { useState,useEffect} from 'react';
+import React, { useState} from 'react';
 //import useLocalStorage from './useLocalStorage';
+
+
 const { TextArea } = Input;
 
-
- //const commentLocalStorage = JSON.parse(localStorage.getItem("value") || '[]');
+// const savedItem = localStorage.getItem("value");
+// // const commentLocalStorage = (JSON.parse(savedItem?? '') || '[]');
+//  const commentLocalStorage = JSON.parse((localStorage.getItem("value") || '[]'))
 
 interface CommentItem {
   author: string;
@@ -39,7 +42,7 @@ const Editor = ({ onChange, onSubmit, submitting, value }: EditorProps) => (
   
   </>
 );
-console.log(Editor)
+ 
 
 const CommentList = ({ comments }: { comments: CommentItem[] }) => (
 
@@ -54,30 +57,35 @@ const CommentList = ({ comments }: { comments: CommentItem[] }) => (
  
 );
 
-const CommentLists = () => {
+const CommentLists = ({handleCancel}:any) => {
   const [comments, setComments] = useState<CommentItem[]>([]);
   const [submitting, setSubmitting] = useState(false);
   const [value, setValue] = useState('');
-  const [close, setClose] = useState(true);
+  //const [close, setClose] = useState(true);
 
- 
- 
-//  useEffect (()=> {
-//   localStorage.setItem("value", JSON.stringify(value))
- 
-//  },[value])
+  
+  // useEffect(() => { 
+  // localStorage.setItem("value",JSON.stringify(value))
+  // });
 
+   
+  // useEffect(() => { 
+     
+  //   const result = window.localStorage.getItem('values')
+  //    if (result !== null){
+  //     setValue(JSON.parse(result))
+  //    }
+  //   },[]);
+  
 
   const handleSubmit = () => {     
- console.log('data', comments)
+ 
     if (!value) return;
     setSubmitting(true);
     setTimeout(() => {
       setSubmitting(false);
       setValue('');
-      
- 
-      setComments([
+       setComments([
         ...comments,
         {
           author: 'Han Solo',
@@ -97,15 +105,13 @@ const CommentLists = () => {
   return (
     <>
    
-        {close &&  <div className='commentSectionHead'> 
+        <div className='commentSectionHead'> 
 
 
         <div >
               <div className='commentsHead'>
                 <span className='commentTitle'> Comments</span>
-                <span className='xmark' onClick={()=> setClose(!close) 
-                 
-                }>X
+                <span className='xmark' onClick={handleCancel}>X
                 </span>
                   
                     
@@ -135,7 +141,7 @@ const CommentLists = () => {
      </div> 
        
 
-      }
+    
       
     </>
      
