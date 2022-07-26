@@ -96,8 +96,16 @@ function Contents() {
   const [active, setActive] = useState(false);
     //const [close, setClose] = useState(true);
 
-   
+    // useEffect(() => {
+    //   setValue(JSON.parse(window.localStorage.getItem( 'value') ?? ''));
+    // }, []);
+  
+    // useEffect(() => {
+    //   window.localStorage.setItem('value', value);
+    // }, [value]);
 
+
+    
 
   useEffect(() => {
      
@@ -170,11 +178,12 @@ function Contents() {
 
   const toggleinput = () => {
     setToggle(!toggle);
-    console.log("toggle==>", toggle);
+    // console.log("toggle==>", toggle);
   };
 
   const activeHandle = () => {
     setActive(!active);
+    
      
   };
 
