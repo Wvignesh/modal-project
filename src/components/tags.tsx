@@ -2,7 +2,7 @@ import { Input, Space,Tag, Tooltip } from 'antd';
 import React, { useRef, useState,useEffect } from 'react';
 import { CloseOutlined} from '@ant-design/icons';
 import type { InputRef } from 'antd';
-//import useLocalStorage from './useLocalStorage';
+ 
 
 
 const tagLocalStorage = JSON.parse(localStorage.getItem("inputValue") || '[]');

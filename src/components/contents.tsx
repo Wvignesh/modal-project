@@ -14,12 +14,11 @@ import "../App.css";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import { Avatar, Button, Comment, Form, Input, List } from "antd";
 import moment from "moment";
-//import Tags from "./tags";
 import { Space,Tag, Tooltip } from 'antd';
 import React, { useRef, useState,useEffect } from 'react';
 import { CloseOutlined} from '@ant-design/icons';
 import type { InputRef } from 'antd';
-//import CommentLists from "./commentLists";
+ 
 
 const initUser = { email: "joe@gmail.com", username: "" };
 
@@ -81,7 +80,6 @@ function Contents() {
   const [inputValue, setInputValue] = useState('');
   const [editInputIndex, setEditInputIndex] = useState(-1);
   const [editInputValue, setEditInputValue] = useState('');
-  //const [close, setClose] = useState(true);
   const inputRef = useRef<InputRef>(null);
   const editInputRef = useRef<InputRef>(null);
   const [comments, setComments] = useState<CommentItem[]>([]);
@@ -96,6 +94,7 @@ function Contents() {
   const [data, setData] = useState<any>([]);
   const [toggle, setToggle] = useState(false);
   const [active, setActive] = useState(false);
+    //const [close, setClose] = useState(true);
 
    
 
@@ -110,7 +109,7 @@ function Contents() {
   useEffect(() => {
     editInputRef.current?.focus();
   }, [inputValue]);
-  
+
   const handleClose = (removedTag:any) => {
     const newTags = tags.filter((tag) => tag !== removedTag);
     console.log(newTags);
